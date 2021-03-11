@@ -1,13 +1,21 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 import { Customer } from './interfaces/customer.interface';
+import { CustomerDto } from 'src/dto/create-customer.dto';
+import { CustomerService } from './controllers/customer.service';
 
-@Controller('customer')
+@Controller('customers')
 export class CustomerController {
+  customers: any;
 
-  private readonly customers:Customer[] = [{name: "Evelyn", age: 24, document: '12345678912'}];
+  constructor(private readonly customerService: CustomerService){}
 
   @Get()
   getCustomers():Customer[]{
-    return this.customers;
+    return this.customers.findAll();
+  }
+
+  @Post()
+  createCustomer(@Body() createCustomerDto : CustomerDto ){
+    this.customerService.createCustomer(createCustomerDto);
   }
 }
