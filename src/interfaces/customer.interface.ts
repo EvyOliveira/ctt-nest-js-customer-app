@@ -1,5 +1,5 @@
 export interface Customer {
-  name: string
-  age: number
-  document: string
+  name: string;
+  age: number;
+  document: string;
 }
